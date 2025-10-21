@@ -1,0 +1,55 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact",
+    "cv": "Download CV"
+  },
+  "hero": {
+    "title": "Hi, I'm",
+    "name": "Your Name",
+    "subtitle": "Full Stack Developer",
+    "description": "I create beautiful and functional web applications with modern technologies.",
+    "cta": "View My Work",
+    "scroll": "Scroll Down"
+  },
+  "about": {
+    "title": "About Me",
+    "subtitle": "Get to know me better",
+    "description": "I am a passionate developer with experience in creating modern web applications. I love working with React, TypeScript, and other cutting-edge technologies.",
+    "skills": "Skills",
+    "experience": "Experience",
+    "education": "Education"
+  },
+  "projects": {
+    "title": "My Projects",
+    "subtitle": "Some of my recent work",
+    "viewProject": "View Project",
+    "viewCode": "View Code",
+    "tech": "Technologies"
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "subtitle": "Let's work together",
+    "description": "I'm always interested in new opportunities and exciting projects.",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send Message",
+    "success": "Message sent successfully!",
+    "error": "Failed to send message. Please try again.",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone",
+    "locationLabel": "Location",
+    "followMe": "Follow Me",
+    "namePlaceholder": "Your Name",
+    "emailPlaceholder": "your.email@example.com",
+    "messagePlaceholder": "Your message...",
+    "sending": "Sending..."
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "built": "Built with"
+  }
+}

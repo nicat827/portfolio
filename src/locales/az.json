@@ -1,0 +1,55 @@
+{
+  "nav": {
+    "home": "Ana Səhifə",
+    "about": "Haqqımda",
+    "projects": "Layihələr",
+    "contact": "Əlaqə",
+    "cv": "CV Yüklə"
+  },
+  "hero": {
+    "title": "Salam, mən",
+    "name": "Sizin Adınız",
+    "subtitle": "Full Stack Developer",
+    "description": "Mən müasir texnologiyalarla gözəl və funksional veb tətbiqlər yaradıram.",
+    "cta": "İşlərimə Bax",
+    "scroll": "Aşağı Sürüşdür"
+  },
+  "about": {
+    "title": "Haqqımda",
+    "subtitle": "Məni daha yaxşı tanıyın",
+    "description": "Mən müasir veb tətbiqlər yaratmaq təcrübəsi olan həvəskar developerəm. React, TypeScript və digər müasir texnologiyalarla işləməyi sevirəm.",
+    "skills": "Bacarıqlar",
+    "experience": "Təcrübə",
+    "education": "Təhsil"
+  },
+  "projects": {
+    "title": "Layihələrim",
+    "subtitle": "Son işlərimdən bəziləri",
+    "viewProject": "Layihəyə Bax",
+    "viewCode": "Koda Bax",
+    "tech": "Texnologiyalar"
+  },
+  "contact": {
+    "title": "Əlaqə",
+    "subtitle": "Gəlin birlikdə işləyək",
+    "description": "Mən həmişə yeni imkanlar və maraqlı layihələrlə maraqlanıram.",
+    "name": "Ad",
+    "email": "Email",
+    "message": "Mesaj",
+    "send": "Mesaj Göndər",
+    "success": "Mesaj uğurla göndərildi!",
+    "error": "Mesaj göndərilmədi. Yenidən cəhd edin.",
+    "emailLabel": "Email",
+    "phoneLabel": "Telefon",
+    "locationLabel": "Yerləşim",
+    "followMe": "İzləyin",
+    "namePlaceholder": "Sizin adınız",
+    "emailPlaceholder": "your.email@example.com",
+    "messagePlaceholder": "Sizin mesajınız...",
+    "sending": "Göndərilir..."
+  },
+  "footer": {
+    "rights": "Bütün hüquqlar qorunur.",
+    "built": "İstifadə edilən texnologiyalar"
+  }
+}
