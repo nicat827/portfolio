@@ -1,0 +1,7 @@
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+startCommand = "cd frontend && npm run preview"
+healthcheckPath = "/"
+healthcheckTimeout = 100
