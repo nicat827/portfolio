@@ -1,19 +1,9 @@
-import { IsString, IsDateString, IsBoolean, IsArray, IsOptional } from 'class-validator';
+import { IsString, IsDateString, IsBoolean, IsArray, IsOptional, ValidateNested } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { CreateExperienceTranslationDto } from './create-experience-translation.dto';
 
 export class CreateExperienceDto {
-  @ApiProperty({ description: 'Company name' })
-  @IsString()
-  company: string;
-
-  @ApiProperty({ description: 'Job position' })
-  @IsString()
-  position: string;
-
-  @ApiProperty({ description: 'Job description' })
-  @IsString()
-  description: string;
-
   @ApiProperty({ description: 'Start date', type: 'string', format: 'date' })
   @IsDateString()
   startDate: string;
@@ -32,5 +22,11 @@ export class CreateExperienceDto {
   @IsArray()
   @IsString({ each: true })
   technologies: string[];
+
+  @ApiProperty({ description: 'Experience translations', type: [CreateExperienceTranslationDto] })
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateExperienceTranslationDto)
+  translations: CreateExperienceTranslationDto[];
 }
 

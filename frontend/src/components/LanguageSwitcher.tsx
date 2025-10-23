@@ -31,7 +31,7 @@ const LanguageSwitcher: React.FC = () => {
                 i18n.language === lang.code ? 'bg-primary-500/20 text-primary-400' : 'text-white'
               }`}
             >
-              <span className="text-lg">{lang.flag}</span>
+              <span className="text-lg flag-emoji">{lang.flag}</span>
               <span className="font-medium">{lang.name}</span>
             </button>
           ))}

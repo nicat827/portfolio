@@ -3,12 +3,14 @@
     "home": "Home",
     "about": "About",
     "projects": "Projects",
+    "education": "Education",
     "contact": "Contact",
-    "cv": "Download CV"
+    "cv": "Download CV",
+    "menu": "Menu"
   },
   "hero": {
     "title": "Hi, I'm",
-    "name": "Your Name",
+    "name": "Nijat Majidov",
     "subtitle": "Full Stack Developer",
     "description": "I create beautiful and functional web applications with modern technologies.",
     "cta": "View My Work",
@@ -35,6 +37,7 @@
     "description": "I'm always interested in new opportunities and exciting projects.",
     "name": "Name",
     "email": "Email",
+    "subject": "Subject",
     "message": "Message",
     "send": "Send Message",
     "success": "Message sent successfully!",
@@ -45,8 +48,15 @@
     "followMe": "Follow Me",
     "namePlaceholder": "Your Name",
     "emailPlaceholder": "your.email@example.com",
+    "subjectPlaceholder": "Subject of your message",
     "messagePlaceholder": "Your message...",
     "sending": "Sending..."
+  },
+  "education": {
+    "title": "Education",
+    "subtitle": "My educational background and achievements",
+    "visitWebsite": "Visit Website",
+    "current": "Current"
   },
   "footer": {
     "rights": "All rights reserved.",

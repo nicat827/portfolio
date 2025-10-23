@@ -8,6 +8,7 @@ import {
   Delete,
   HttpCode,
   HttpStatus,
+  Headers,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ExperiencesService } from './experiences.service';
@@ -30,23 +31,26 @@ export class ExperiencesController {
   @Get()
   @ApiOperation({ summary: 'Get all experiences' })
   @ApiResponse({ status: 200, description: 'Experiences retrieved successfully' })
-  findAll() {
-    return this.experiencesService.findAll();
+  findAll(@Headers('accept-language') language: string = 'en') {
+    const lang = language?.split(',')[0]?.split('-')[0] || 'en';
+    return this.experiencesService.findAll(lang);
   }
 
   @Get('current')
   @ApiOperation({ summary: 'Get current experiences' })
   @ApiResponse({ status: 200, description: 'Current experiences retrieved successfully' })
-  findCurrent() {
-    return this.experiencesService.findCurrent();
+  findCurrent(@Headers('accept-language') language: string = 'en') {
+    const lang = language?.split(',')[0]?.split('-')[0] || 'en';
+    return this.experiencesService.findCurrent(lang);
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Get an experience by ID' })
   @ApiResponse({ status: 200, description: 'Experience retrieved successfully' })
   @ApiResponse({ status: 404, description: 'Experience not found' })
-  findOne(@Param('id') id: string) {
-    return this.experiencesService.findOne(id);
+  findOne(@Param('id') id: string, @Headers('accept-language') language: string = 'en') {
+    const lang = language?.split(',')[0]?.split('-')[0] || 'en';
+    return this.experiencesService.findOne(id, lang);
   }
 
   @Patch(':id')

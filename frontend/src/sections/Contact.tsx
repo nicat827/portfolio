@@ -33,20 +33,20 @@ const Contact: React.FC = () => {
     {
       icon: Mail,
       label: t('contact.emailLabel'),
-      value: 'your.email@example.com',
-      href: 'mailto:your.email@example.com',
+      value: 'nicatmajidov@gmail.com',
+      href: 'mailto:nicatmajidov@gmail.com',
     },
     {
       icon: Phone,
       label: t('contact.phoneLabel'),
-      value: '+1 (555) 123-4567',
-      href: 'tel:+15551234567',
+      value: '+994 (50) 977-8415',
+      href: 'tel:+994509778415',
     },
     {
       icon: MapPin,
       label: t('contact.locationLabel'),
-      value: 'Your City, Country',
-      href: '#',
+      value: 'Baku, Azerbaijan',
+      href: 'https://maps.google.com/maps?q=Baku,+Azerbaijan',
     },
   ];
 
@@ -74,9 +74,9 @@ const Contact: React.FC = () => {
         <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
           {/* Contact Info */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             viewport={{ once: true }}
             className="space-y-8"
           >
@@ -85,9 +85,11 @@ const Contact: React.FC = () => {
                 <motion.a
                   key={index}
                   href={info.href}
+                  target={info.href.startsWith('mailto:') || info.href.startsWith('https://maps') ? '_blank' : undefined}
+                  rel={info.href.startsWith('mailto:') || info.href.startsWith('https://maps') ? 'noopener noreferrer' : undefined}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  transition={{ duration: 0.4, delay: index * 0.1, ease: "easeOut" }}
                   viewport={{ once: true }}
                   className="glass-effect p-6 rounded-lg hover:bg-white/10 transition-all duration-300 flex items-center gap-4 group"
                 >
@@ -107,7 +109,7 @@ const Contact: React.FC = () => {
               <h3 className="text-xl font-semibold text-white mb-4">{t('contact.followMe')}</h3>
               <div className="flex gap-4">
                 <a
-                  href="https://github.com"
+                  href="https://github.com/nicat827"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-3 bg-gray-700/50 rounded-lg hover:bg-gray-600/50 transition-colors duration-300"
@@ -117,7 +119,7 @@ const Contact: React.FC = () => {
                   </svg>
                 </a>
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/in/nicatmajidov"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-3 bg-gray-700/50 rounded-lg hover:bg-gray-600/50 transition-colors duration-300"
@@ -127,7 +129,9 @@ const Contact: React.FC = () => {
                   </svg>
                 </a>
                 <a
-                  href="mailto:your.email@example.com"
+                  href="mailto:nicatmajidov@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="p-3 bg-gray-700/50 rounded-lg hover:bg-gray-600/50 transition-colors duration-300"
                 >
                   <Mail className="w-6 h-6" />
@@ -138,9 +142,9 @@ const Contact: React.FC = () => {
 
           {/* Contact Form */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             viewport={{ once: true }}
             className="glass-effect p-8 rounded-lg"
           >

@@ -202,9 +202,9 @@ const Hero: React.FC = () => {
         >
           {/* Greeting */}
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
             className="text-4xl md:text-6xl lg:text-7xl font-bold"
           >
             <span className="text-white">{t('hero.title')}</span>
@@ -214,9 +214,9 @@ const Hero: React.FC = () => {
 
           {/* Subtitle */}
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
             className="text-xl md:text-2xl lg:text-3xl text-gray-300 font-medium"
           >
             {t('hero.subtitle')}
@@ -226,7 +226,7 @@ const Hero: React.FC = () => {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: 0.5, delay: 0.6, ease: "easeOut" }}
             className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed"
           >
             {t('hero.description')}
@@ -234,9 +234,9 @@ const Hero: React.FC = () => {
 
           {/* CTA Buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            transition={{ duration: 0.5, delay: 0.8, ease: "easeOut" }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <button
@@ -248,7 +248,7 @@ const Hero: React.FC = () => {
             
             <div className="flex gap-4">
               <a
-                href="https://github.com"
+                href="https://github.com/nicat827"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="glass-effect p-3 rounded-lg hover:bg-white/10 transition-all duration-300"
@@ -256,7 +256,7 @@ const Hero: React.FC = () => {
                 <Github className="w-6 h-6" />
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/nicatmajidov"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="glass-effect p-3 rounded-lg hover:bg-white/10 transition-all duration-300"
@@ -264,7 +264,7 @@ const Hero: React.FC = () => {
                 <Linkedin className="w-6 h-6" />
               </a>
               <a
-                href="mailto:your.email@example.com"
+                href="mailto:nicatmajidov@gmail.com"
                 className="glass-effect p-3 rounded-lg hover:bg-white/10 transition-all duration-300"
               >
                 <Mail className="w-6 h-6" />

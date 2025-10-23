@@ -12,6 +12,7 @@ const Navigation: React.FC = () => {
     { key: 'home', href: '#home' },
     { key: 'about', href: '#about' },
     { key: 'projects', href: '#projects' },
+    { key: 'education', href: '#education' },
     { key: 'contact', href: '#contact' },
   ];
 
@@ -45,10 +46,8 @@ const Navigation: React.FC = () => {
   };
 
   const handleDownloadCV = () => {
-    const link = document.createElement('a');
-    link.href = '/cv.pdf';
-    link.download = 'CV.pdf';
-    link.click();
+    // Open CV from Cloudinary in new tab
+    window.open('https://res.cloudinary.com/dg28bvc8m/image/upload/v1761216357/r1q3wetktkwosd8ucxdr.pdf', '_blank');
   };
 
   return (
@@ -112,7 +111,7 @@ const Navigation: React.FC = () => {
               <div className="flex flex-col h-full">
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-gray-600">
-                  <span className="text-xl font-bold text-white">Menu</span>
+                  <span className="text-xl font-bold text-white">{t('nav.menu')}</span>
                   <button
                     onClick={closeMenu}
                     className="p-2 rounded-lg hover:bg-gray-700 transition-colors duration-200"

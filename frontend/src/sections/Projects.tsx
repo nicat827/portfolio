@@ -13,19 +13,20 @@ const Projects: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.15,
+        delayChildren: 0.1,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { 
+      opacity: 0, 
+      y: 20
+    },
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.6,
-      },
     },
   };
 
@@ -69,6 +70,7 @@ const Projects: React.FC = () => {
             <motion.div
               key={project.id}
               variants={itemVariants}
+              transition={{ duration: 0.5, ease: "easeOut" }}
               className="glass-effect rounded-lg overflow-hidden hover:bg-white/10 transition-all duration-300 group"
             >
               {/* Project Image */}

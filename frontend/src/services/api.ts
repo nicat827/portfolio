@@ -49,6 +49,21 @@ export interface Contact {
   updatedAt: string;
 }
 
+export interface Education {
+  id: string;
+  institution: string;
+  degree: string;
+  field: string;
+  description?: string;
+  startDate: string;
+  endDate?: string;
+  current: boolean;
+  grade?: string;
+  website?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 // API методы для проектов
 export const projectsApi = {
   // Получить все проекты
@@ -108,6 +123,39 @@ export const contactsApi = {
   // Получить контакт по ID
   getById: async (id: string): Promise<Contact> => {
     const response = await api.get(`/contacts/${id}`);
+    return response.data;
+  },
+};
+
+// API методы для образования
+export const educationApi = {
+  // Получить все образования
+  getAll: async (language: string = 'en'): Promise<Education[]> => {
+    const response = await api.get('/education', {
+      headers: {
+        'Accept-Language': language,
+      },
+    });
+    return response.data;
+  },
+
+  // Получить текущие образования
+  getCurrent: async (language: string = 'en'): Promise<Education[]> => {
+    const response = await api.get('/education/current', {
+      headers: {
+        'Accept-Language': language,
+      },
+    });
+    return response.data;
+  },
+
+  // Получить образование по ID
+  getById: async (id: string, language: string = 'en'): Promise<Education> => {
+    const response = await api.get(`/education/${id}`, {
+      headers: {
+        'Accept-Language': language,
+      },
+    });
     return response.data;
   },
 };

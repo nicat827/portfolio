@@ -1,15 +1,9 @@
-import { IsString, IsOptional, IsBoolean, IsArray, IsUrl } from 'class-validator';
+import { IsString, IsOptional, IsBoolean, IsArray, IsUrl, ValidateNested } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { CreateProjectTranslationDto } from './create-project-translation.dto';
 
 export class CreateProjectDto {
-  @ApiProperty({ description: 'Project title' })
-  @IsString()
-  title: string;
-
-  @ApiProperty({ description: 'Project description' })
-  @IsString()
-  description: string;
-
   @ApiProperty({ description: 'Project image URL', required: false })
   @IsOptional()
   @IsUrl()
@@ -34,4 +28,10 @@ export class CreateProjectDto {
   @IsOptional()
   @IsBoolean()
   featured?: boolean;
+
+  @ApiProperty({ description: 'Project translations', type: [CreateProjectTranslationDto] })
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateProjectTranslationDto)
+  translations: CreateProjectTranslationDto[];
 }

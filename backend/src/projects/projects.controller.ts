@@ -8,6 +8,7 @@ import {
   Delete,
   HttpCode,
   HttpStatus,
+  Headers,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ProjectsService } from './projects.service';
@@ -30,23 +31,26 @@ export class ProjectsController {
   @Get()
   @ApiOperation({ summary: 'Get all projects' })
   @ApiResponse({ status: 200, description: 'Projects retrieved successfully' })
-  findAll() {
-    return this.projectsService.findAll();
+  findAll(@Headers('accept-language') language: string = 'en') {
+    const lang = language?.split(',')[0]?.split('-')[0] || 'en';
+    return this.projectsService.findAll(lang);
   }
 
   @Get('featured')
   @ApiOperation({ summary: 'Get featured projects' })
   @ApiResponse({ status: 200, description: 'Featured projects retrieved successfully' })
-  findFeatured() {
-    return this.projectsService.findFeatured();
+  findFeatured(@Headers('accept-language') language: string = 'en') {
+    const lang = language?.split(',')[0]?.split('-')[0] || 'en';
+    return this.projectsService.findFeatured(lang);
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Get a project by ID' })
   @ApiResponse({ status: 200, description: 'Project retrieved successfully' })
   @ApiResponse({ status: 404, description: 'Project not found' })
-  findOne(@Param('id') id: string) {
-    return this.projectsService.findOne(id);
+  findOne(@Param('id') id: string, @Headers('accept-language') language: string = 'en') {
+    const lang = language?.split(',')[0]?.split('-')[0] || 'en';
+    return this.projectsService.findOne(id, lang);
   }
 
   @Patch(':id')

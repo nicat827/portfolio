@@ -3,12 +3,14 @@
     "home": "Ana Səhifə",
     "about": "Haqqımda",
     "projects": "Layihələr",
+    "education": "Təhsil",
     "contact": "Əlaqə",
-    "cv": "CV Yüklə"
+    "cv": "CV Yüklə",
+    "menu": "Menyu"
   },
   "hero": {
     "title": "Salam, mən",
-    "name": "Sizin Adınız",
+    "name": "Nicat Məcidov",
     "subtitle": "Full Stack Developer",
     "description": "Mən müasir texnologiyalarla gözəl və funksional veb tətbiqlər yaradıram.",
     "cta": "İşlərimə Bax",
@@ -35,6 +37,7 @@
     "description": "Mən həmişə yeni imkanlar və maraqlı layihələrlə maraqlanıram.",
     "name": "Ad",
     "email": "Email",
+    "subject": "Mövzu",
     "message": "Mesaj",
     "send": "Mesaj Göndər",
     "success": "Mesaj uğurla göndərildi!",
@@ -45,8 +48,15 @@
     "followMe": "İzləyin",
     "namePlaceholder": "Sizin adınız",
     "emailPlaceholder": "your.email@example.com",
+    "subjectPlaceholder": "Mesajınızın mövzusu",
     "messagePlaceholder": "Sizin mesajınız...",
     "sending": "Göndərilir..."
+  },
+  "education": {
+    "title": "Təhsil",
+    "subtitle": "Mənim təhsil fonum və nailiyyətlərim",
+    "visitWebsite": "Veb Saytı Ziyarət Et",
+    "current": "Hal-hazırda"
   },
   "footer": {
     "rights": "Bütün hüquqlar qorunur.",

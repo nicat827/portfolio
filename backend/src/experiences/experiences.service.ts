@@ -8,48 +8,143 @@ export class ExperiencesService {
   constructor(private prisma: PrismaService) {}
 
   async create(createExperienceDto: CreateExperienceDto) {
+    const { translations, ...experienceData } = createExperienceDto;
+    
     return this.prisma.experience.create({
-      data: createExperienceDto,
-    });
-  }
-
-  async findAll() {
-    return this.prisma.experience.findMany({
-      orderBy: {
-        startDate: 'desc',
+      data: {
+        ...experienceData,
+        translations: {
+          create: translations,
+        },
       },
     });
   }
 
-  async findCurrent() {
-    return this.prisma.experience.findMany({
+  async findAll(language: string = 'en') {
+    const experiences = await this.prisma.experience.findMany({
+      include: {
+        translations: {
+          where: {
+            language: language,
+          },
+        },
+      },
+      orderBy: {
+        startDate: 'desc',
+      },
+    });
+
+    return experiences.map(experience => {
+      const translation = experience.translations[0];
+      if (!translation) {
+        throw new Error(`Translation not found for experience ${experience.id} in language ${language}`);
+      }
+      
+      return {
+        id: experience.id,
+        company: translation.company,
+        position: translation.position,
+        description: translation.description,
+        startDate: experience.startDate,
+        endDate: experience.endDate,
+        current: experience.current,
+        technologies: experience.technologies,
+        createdAt: experience.createdAt,
+        updatedAt: experience.updatedAt,
+      };
+    });
+  }
+
+  async findCurrent(language: string = 'en') {
+    const experiences = await this.prisma.experience.findMany({
       where: {
         current: true,
       },
+      include: {
+        translations: {
+          where: {
+            language: language,
+          },
+        },
+      },
       orderBy: {
         startDate: 'desc',
       },
     });
+
+    return experiences.map(experience => {
+      const translation = experience.translations[0];
+      if (!translation) {
+        throw new Error(`Translation not found for experience ${experience.id} in language ${language}`);
+      }
+      
+      return {
+        id: experience.id,
+        company: translation.company,
+        position: translation.position,
+        description: translation.description,
+        startDate: experience.startDate,
+        endDate: experience.endDate,
+        current: experience.current,
+        technologies: experience.technologies,
+        createdAt: experience.createdAt,
+        updatedAt: experience.updatedAt,
+      };
+    });
   }
 
-  async findOne(id: string) {
+  async findOne(id: string, language: string = 'en') {
     const experience = await this.prisma.experience.findUnique({
       where: { id },
+      include: {
+        translations: {
+          where: {
+            language: language,
+          },
+        },
+      },
     });
 
     if (!experience) {
       throw new NotFoundException(`Experience with ID ${id} not found`);
     }
 
-    return experience;
+    const translation = experience.translations[0];
+    if (!translation) {
+      throw new Error(`Translation not found for experience ${id} in language ${language}`);
+    }
+
+    return {
+      id: experience.id,
+      company: translation.company,
+      position: translation.position,
+      description: translation.description,
+      startDate: experience.startDate,
+      endDate: experience.endDate,
+      current: experience.current,
+      technologies: experience.technologies,
+      createdAt: experience.createdAt,
+      updatedAt: experience.updatedAt,
+    };
   }
 
   async update(id: string, updateExperienceDto: UpdateExperienceDto) {
     await this.findOne(id);
+    
+    const { translations, ...experienceData } = updateExperienceDto;
+    
+    const updateData: any = { ...experienceData };
+    
+    if (translations) {
+      updateData.translations = {
+        deleteMany: {},
+        create: translations,
+      };
+    }
 
     return this.prisma.experience.update({
       where: { id },
-      data: updateExperienceDto,
+      data: updateData,
     });
   }
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { projectsApi, experiencesApi, contactsApi } from '../services/api';
-import type { Project, Experience } from '../services/api';
+import { useTranslation } from 'react-i18next';
+import { projectsApi, experiencesApi, contactsApi, educationApi } from '../services/api';
+import type { Project, Experience, Education } from '../services/api';
 
 // Хук для работы с проектами
 export const useProjects = () => {
@@ -9,21 +10,33 @@ export const useProjects = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const abortController = new AbortController();
+    
     const fetchProjects = async () => {
       try {
         setLoading(true);
         const data = await projectsApi.getAll();
-        setProjects(data);
-        setError(null);
+        if (!abortController.signal.aborted) {
+          setProjects(data);
+          setError(null);
+        }
       } catch (err) {
-        setError('Failed to fetch projects');
-        console.error('Error fetching projects:', err);
+        if (!abortController.signal.aborted) {
+          setError('Failed to fetch projects');
+          console.error('Error fetching projects:', err);
+        }
       } finally {
-        setLoading(false);
+        if (!abortController.signal.aborted) {
+          setLoading(false);
+        }
       }
     };
 
     fetchProjects();
+    
+    return () => {
+      abortController.abort();
+    };
   }, []);
 
   return { projects, loading, error };
@@ -36,21 +49,33 @@ export const useFeaturedProjects = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const abortController = new AbortController();
+    
     const fetchFeaturedProjects = async () => {
       try {
         setLoading(true);
         const data = await projectsApi.getFeatured();
-        setProjects(data);
-        setError(null);
+        if (!abortController.signal.aborted) {
+          setProjects(data);
+          setError(null);
+        }
       } catch (err) {
-        setError('Failed to fetch featured projects');
-        console.error('Error fetching featured projects:', err);
+        if (!abortController.signal.aborted) {
+          setError('Failed to fetch featured projects');
+          console.error('Error fetching featured projects:', err);
+        }
       } finally {
-        setLoading(false);
+        if (!abortController.signal.aborted) {
+          setLoading(false);
+        }
       }
     };
 
     fetchFeaturedProjects();
+    
+    return () => {
+      abortController.abort();
+    };
   }, []);
 
   return { projects, loading, error };
@@ -63,21 +88,33 @@ export const useExperiences = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const abortController = new AbortController();
+    
     const fetchExperiences = async () => {
       try {
         setLoading(true);
         const data = await experiencesApi.getAll();
-        setExperiences(data);
-        setError(null);
+        if (!abortController.signal.aborted) {
+          setExperiences(data);
+          setError(null);
+        }
       } catch (err) {
-        setError('Failed to fetch experiences');
-        console.error('Error fetching experiences:', err);
+        if (!abortController.signal.aborted) {
+          setError('Failed to fetch experiences');
+          console.error('Error fetching experiences:', err);
+        }
       } finally {
-        setLoading(false);
+        if (!abortController.signal.aborted) {
+          setLoading(false);
+        }
       }
     };
 
     fetchExperiences();
+    
+    return () => {
+      abortController.abort();
+    };
   }, []);
 
   return { experiences, loading, error };
@@ -90,21 +127,33 @@ export const useCurrentExperiences = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const abortController = new AbortController();
+    
     const fetchCurrentExperiences = async () => {
       try {
         setLoading(true);
         const data = await experiencesApi.getCurrent();
-        setExperiences(data);
-        setError(null);
+        if (!abortController.signal.aborted) {
+          setExperiences(data);
+          setError(null);
+        }
       } catch (err) {
-        setError('Failed to fetch current experiences');
-        console.error('Error fetching current experiences:', err);
+        if (!abortController.signal.aborted) {
+          setError('Failed to fetch current experiences');
+          console.error('Error fetching current experiences:', err);
+        }
       } finally {
-        setLoading(false);
+        if (!abortController.signal.aborted) {
+          setLoading(false);
+        }
       }
     };
 
     fetchCurrentExperiences();
+    
+    return () => {
+      abortController.abort();
+    };
   }, []);
 
   return { experiences, loading, error };
@@ -138,4 +187,84 @@ export const useContactForm = () => {
   };
 
   return { submitContact, loading, error, success };
+};
+
+// Хук для работы с образованием
+export const useEducation = () => {
+  const { i18n } = useTranslation();
+  const [education, setEducation] = useState<Education[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    
+    const fetchEducation = async () => {
+      try {
+        setLoading(true);
+        const data = await educationApi.getAll(i18n.language);
+        if (!abortController.signal.aborted) {
+          setEducation(data);
+          setError(null);
+        }
+      } catch (err) {
+        if (!abortController.signal.aborted) {
+          setError('Failed to fetch education');
+          console.error('Error fetching education:', err);
+        }
+      } finally {
+        if (!abortController.signal.aborted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchEducation();
+    
+    return () => {
+      abortController.abort();
+    };
+  }, [i18n.language]);
+
+  return { education, loading, error };
+};
+
+// Хук для работы с текущим образованием
+export const useCurrentEducation = () => {
+  const { i18n } = useTranslation();
+  const [education, setEducation] = useState<Education[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    
+    const fetchCurrentEducation = async () => {
+      try {
+        setLoading(true);
+        const data = await educationApi.getCurrent(i18n.language);
+        if (!abortController.signal.aborted) {
+          setEducation(data);
+          setError(null);
+        }
+      } catch (err) {
+        if (!abortController.signal.aborted) {
+          setError('Failed to fetch current education');
+          console.error('Error fetching current education:', err);
+        }
+      } finally {
+        if (!abortController.signal.aborted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchCurrentEducation();
+    
+    return () => {
+      abortController.abort();
+    };
+  }, [i18n.language]);
+
+  return { education, loading, error };
 };

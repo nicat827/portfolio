@@ -8,48 +8,143 @@ export class ProjectsService {
   constructor(private prisma: PrismaService) {}
 
   async create(createProjectDto: CreateProjectDto) {
+    const { translations, ...projectData } = createProjectDto;
+    
     return this.prisma.project.create({
-      data: createProjectDto,
-    });
-  }
-
-  async findAll() {
-    return this.prisma.project.findMany({
-      orderBy: {
-        createdAt: 'desc',
+      data: {
+        ...projectData,
+        translations: {
+          create: translations,
+        },
       },
     });
   }
 
-  async findFeatured() {
-    return this.prisma.project.findMany({
+  async findAll(language: string = 'en') {
+    const projects = await this.prisma.project.findMany({
+      include: {
+        translations: {
+          where: {
+            language: language,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    return projects.map(project => {
+      const translation = project.translations[0];
+      if (!translation) {
+        throw new Error(`Translation not found for project ${project.id} in language ${language}`);
+      }
+      
+      return {
+        id: project.id,
+        title: translation.title,
+        description: translation.description,
+        imageUrl: project.imageUrl,
+        technologies: project.technologies,
+        githubUrl: project.githubUrl,
+        liveUrl: project.liveUrl,
+        featured: project.featured,
+        createdAt: project.createdAt,
+        updatedAt: project.updatedAt,
+      };
+    });
+  }
+
+  async findFeatured(language: string = 'en') {
+    const projects = await this.prisma.project.findMany({
       where: {
         featured: true,
       },
+      include: {
+        translations: {
+          where: {
+            language: language,
+          },
+        },
+      },
       orderBy: {
         createdAt: 'desc',
       },
     });
+
+    return projects.map(project => {
+      const translation = project.translations[0];
+      if (!translation) {
+        throw new Error(`Translation not found for project ${project.id} in language ${language}`);
+      }
+      
+      return {
+        id: project.id,
+        title: translation.title,
+        description: translation.description,
+        imageUrl: project.imageUrl,
+        technologies: project.technologies,
+        githubUrl: project.githubUrl,
+        liveUrl: project.liveUrl,
+        featured: project.featured,
+        createdAt: project.createdAt,
+        updatedAt: project.updatedAt,
+      };
+    });
   }
 
-  async findOne(id: string) {
+  async findOne(id: string, language: string = 'en') {
     const project = await this.prisma.project.findUnique({
       where: { id },
+      include: {
+        translations: {
+          where: {
+            language: language,
+          },
+        },
+      },
     });
 
     if (!project) {
       throw new NotFoundException(`Project with ID ${id} not found`);
     }
 
-    return project;
+    const translation = project.translations[0];
+    if (!translation) {
+      throw new Error(`Translation not found for project ${id} in language ${language}`);
+    }
+
+    return {
+      id: project.id,
+      title: translation.title,
+      description: translation.description,
+      imageUrl: project.imageUrl,
+      technologies: project.technologies,
+      githubUrl: project.githubUrl,
+      liveUrl: project.liveUrl,
+      featured: project.featured,
+      createdAt: project.createdAt,
+      updatedAt: project.updatedAt,
+    };
   }
 
   async update(id: string, updateProjectDto: UpdateProjectDto) {
     await this.findOne(id);
+    
+    const { translations, ...projectData } = updateProjectDto;
+    
+    const updateData: any = { ...projectData };
+    
+    if (translations) {
+      updateData.translations = {
+        deleteMany: {},
+        create: translations,
+      };
+    }
 
     return this.prisma.project.update({
       where: { id },
-      data: updateProjectDto,
+      data: updateData,
     });
   }
 
