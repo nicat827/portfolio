@@ -1,10 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { Code, Database, Globe, Smartphone } from 'lucide-react';
+import { Code, Database, Globe, Smartphone, Loader2 } from 'lucide-react';
+import { useCurrentExperiences } from '../hooks/useApi';
 
 const About: React.FC = () => {
   const { t } = useTranslation();
+  const { experiences: currentExperiences, loading: experiencesLoading, error: experiencesError } = useCurrentExperiences();
 
   const skills = [
     { icon: Code, name: 'Frontend', technologies: ['React', 'TypeScript', 'Next.js', 'Vue.js'] },
@@ -69,22 +71,40 @@ const About: React.FC = () => {
               <h3 className="text-2xl font-semibold text-white">
                 {t('about.experience')}
               </h3>
-              <div className="space-y-3">
-                <div className="glass-effect p-4 rounded-lg">
-                  <h4 className="font-semibold text-white">Senior Full Stack Developer</h4>
-                  <p className="text-gray-400">Company Name • 2022 - Present</p>
-                  <p className="text-sm text-gray-300 mt-2">
-                    Leading development of scalable web applications using modern technologies.
-                  </p>
+              {experiencesLoading ? (
+                <div className="flex items-center justify-center py-8">
+                  <Loader2 className="w-6 h-6 animate-spin text-primary-400" />
+                  <span className="ml-2 text-gray-400">Loading experience...</span>
                 </div>
-                <div className="glass-effect p-4 rounded-lg">
-                  <h4 className="font-semibold text-white">Frontend Developer</h4>
-                  <p className="text-gray-400">Previous Company • 2020 - 2022</p>
-                  <p className="text-sm text-gray-300 mt-2">
-                    Developed responsive user interfaces and optimized application performance.
-                  </p>
+              ) : experiencesError ? (
+                <div className="text-center py-8">
+                  <p className="text-red-400">Failed to load experience</p>
                 </div>
-              </div>
+              ) : (
+                <div className="space-y-3">
+                  {currentExperiences.map((experience) => (
+                    <div key={experience.id} className="glass-effect p-4 rounded-lg">
+                      <h4 className="font-semibold text-white">{experience.position}</h4>
+                      <p className="text-gray-400">
+                        {experience.company} • {new Date(experience.startDate).getFullYear()} - Present
+                      </p>
+                      <p className="text-sm text-gray-300 mt-2">
+                        {experience.description}
+                      </p>
+                      <div className="flex flex-wrap gap-2 mt-3">
+                        {experience.technologies.map((tech, index) => (
+                          <span
+                            key={index}
+                            className="px-2 py-1 bg-primary-500/20 text-primary-300 text-xs rounded-full"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </motion.div>
 

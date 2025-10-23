@@ -1,49 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { ExternalLink, Github } from 'lucide-react';
+import { ExternalLink, Github, Loader2 } from 'lucide-react';
+import { useProjects } from '../hooks/useApi';
 
 const Projects: React.FC = () => {
   const { t } = useTranslation();
-
-  const projects = [
-    {
-      id: 1,
-      title: 'E-Commerce Platform',
-      description: 'A full-stack e-commerce solution with React, Node.js, and PostgreSQL. Features include user authentication, payment processing, and admin dashboard.',
-      image: '/api/placeholder/600/400',
-      technologies: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Stripe'],
-      liveUrl: 'https://example.com',
-      githubUrl: 'https://github.com/example/ecommerce',
-    },
-    {
-      id: 2,
-      title: 'Task Management App',
-      description: 'A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.',
-      image: '/api/placeholder/600/400',
-      technologies: ['Vue.js', 'Socket.io', 'MongoDB', 'Express', 'Redis'],
-      liveUrl: 'https://example.com',
-      githubUrl: 'https://github.com/example/taskmanager',
-    },
-    {
-      id: 3,
-      title: 'Portfolio Website',
-      description: 'A modern, responsive portfolio website built with Next.js and Tailwind CSS. Features dark mode, animations, and contact form.',
-      image: '/api/placeholder/600/400',
-      technologies: ['Next.js', 'Tailwind CSS', 'Framer Motion', 'TypeScript'],
-      liveUrl: 'https://example.com',
-      githubUrl: 'https://github.com/example/portfolio',
-    },
-    {
-      id: 4,
-      title: 'Weather Dashboard',
-      description: 'A weather dashboard application with location-based forecasts, interactive maps, and detailed weather analytics.',
-      image: '/api/placeholder/600/400',
-      technologies: ['React', 'Chart.js', 'OpenWeather API', 'Leaflet'],
-      liveUrl: 'https://example.com',
-      githubUrl: 'https://github.com/example/weather',
-    },
-  ];
+  const { projects, loading, error } = useProjects();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -84,14 +47,25 @@ const Projects: React.FC = () => {
           </p>
         </motion.div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid md:grid-cols-2 lg:grid-cols-2 gap-8"
-        >
-          {projects.map((project) => (
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+            <Loader2 className="w-8 h-8 animate-spin text-primary-400" />
+            <span className="ml-2 text-gray-400">Loading projects...</span>
+          </div>
+        ) : error ? (
+          <div className="text-center py-20">
+            <p className="text-red-400 mb-4">Failed to load projects</p>
+            <p className="text-gray-400">{error}</p>
+          </div>
+        ) : (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid md:grid-cols-2 lg:grid-cols-2 gap-8"
+          >
+            {projects.map((project) => (
             <motion.div
               key={project.id}
               variants={itemVariants}
@@ -110,26 +84,30 @@ const Projects: React.FC = () => {
                 
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 p-4">
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-primary flex items-center gap-2 text-sm sm:text-base px-3 py-2 sm:px-4 sm:py-2 w-full sm:w-auto justify-center"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                    <span className="hidden xs:inline">{t('projects.viewProject')}</span>
-                    <span className="xs:hidden">View</span>
-                  </a>
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-secondary flex items-center gap-2 text-sm sm:text-base px-3 py-2 sm:px-4 sm:py-2 w-full sm:w-auto justify-center"
-                  >
-                    <Github className="w-4 h-4" />
-                    <span className="hidden xs:inline">{t('projects.viewCode')}</span>
-                    <span className="xs:hidden">Code</span>
-                  </a>
+                  {project.liveUrl && (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-primary flex items-center gap-2 text-sm sm:text-base px-3 py-2 sm:px-4 sm:py-2 w-full sm:w-auto justify-center"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      <span className="hidden xs:inline">{t('projects.viewProject')}</span>
+                      <span className="xs:hidden">View</span>
+                    </a>
+                  )}
+                  {project.githubUrl && (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-secondary flex items-center gap-2 text-sm sm:text-base px-3 py-2 sm:px-4 sm:py-2 w-full sm:w-auto justify-center"
+                    >
+                      <Github className="w-4 h-4" />
+                      <span className="hidden xs:inline">{t('projects.viewCode')}</span>
+                      <span className="xs:hidden">Code</span>
+                    </a>
+                  )}
                 </div>
               </div>
 
@@ -160,8 +138,9 @@ const Projects: React.FC = () => {
                 </div>
               </div>
             </motion.div>
-          ))}
-        </motion.div>
+            ))}
+          </motion.div>
+        )}
       </div>
     </section>
   );

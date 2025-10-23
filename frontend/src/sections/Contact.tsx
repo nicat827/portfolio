@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { useContactForm } from '../hooks/useApi';
 
 const Contact: React.FC = () => {
   const { t } = useTranslation();
+  const { submitContact, loading: isSubmitting, error, success } = useContactForm();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    subject: '',
     message: '',
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -22,17 +23,10 @@ const Contact: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', message: '' });
-      
-      // Reset status after 3 seconds
-      setTimeout(() => setSubmitStatus('idle'), 3000);
-    }, 1000);
+    await submitContact(formData);
+    if (success) {
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    }
   };
 
   const contactInfo = [
@@ -184,6 +178,21 @@ const Contact: React.FC = () => {
               </div>
 
               <div>
+                <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
+                  {t('contact.subject')}
+                </label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 bg-dark-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
+                  placeholder={t('contact.subjectPlaceholder')}
+                />
+              </div>
+
+              <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
                   {t('contact.message')}
                 </label>
@@ -218,7 +227,7 @@ const Contact: React.FC = () => {
               </button>
 
               {/* Status Messages */}
-              {submitStatus === 'success' && (
+              {success && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -229,14 +238,14 @@ const Contact: React.FC = () => {
                 </motion.div>
               )}
 
-              {submitStatus === 'error' && (
+              {error && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="flex items-center gap-2 text-red-400 bg-red-400/10 p-3 rounded-lg"
                 >
                   <AlertCircle className="w-5 h-5" />
-                  {t('contact.error')}
+                  {error}
                 </motion.div>
               )}
             </form>
