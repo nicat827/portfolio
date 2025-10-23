@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { GraduationCap, Calendar, MapPin, ExternalLink, Loader2 } from 'lucide-react';
+import { GraduationCap, Calendar, ExternalLink, Loader2 } from 'lucide-react';
 import { useEducation } from '../hooks/useApi';
 
 const Education: React.FC = () => {
@@ -82,7 +82,7 @@ const Education: React.FC = () => {
             viewport={{ once: true }}
             className="space-y-8"
           >
-            {education.map((edu, index) => (
+            {education.map((edu) => (
               <motion.div
                 key={edu.id}
                 variants={itemVariants}
