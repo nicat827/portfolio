@@ -83,6 +83,7 @@ export const useFeaturedProjects = () => {
 
 // Хук для работы с опытом работы
 export const useExperiences = () => {
+  const { i18n } = useTranslation();
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -115,13 +116,14 @@ export const useExperiences = () => {
     return () => {
       abortController.abort();
     };
-  }, []);
+  }, [i18n.language]);
 
   return { experiences, loading, error };
 };
 
 // Хук для работы с текущими работами
 export const useCurrentExperiences = () => {
+  const { i18n } = useTranslation();
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -154,7 +156,7 @@ export const useCurrentExperiences = () => {
     return () => {
       abortController.abort();
     };
-  }, []);
+  }, [i18n.language]);
 
   return { experiences, loading, error };
 };
