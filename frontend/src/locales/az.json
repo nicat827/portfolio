@@ -23,7 +23,13 @@
     "skills": "Bacarıqlar",
     "experience": "Təcrübə",
     "education": "Təhsil",
-    "present": "Hal-hazırda"
+    "present": "Hal-hazırda",
+    "skillNames": {
+      "Frontend": "Frontend",
+      "Backend": "Backend",
+      "DevOps": "DevOps",
+      "Common": "Ümumi"
+    }
   },
   "projects": {
     "title": "Layihələrim",

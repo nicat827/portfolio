@@ -9,10 +9,10 @@ const About: React.FC = () => {
   const { experiences: currentExperiences, loading: experiencesLoading, error: experiencesError } = useExperiences();
 
   const skills = [
-    { icon: Code, name: 'Frontend', technologies: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS'] },
-    { icon: Database, name: 'Backend', technologies: ['C# .NET', 'Nest.js', 'ORM (Prisma, Dapper, EfCore)', 'SQL / NoSQL'] },
-    { icon: Globe, name: 'DevOps', technologies: ['Docker', 'AWS', 'CI/CD', 'Microsoft Azure'] },
-    { icon: Briefcase, name: 'Common', technologies: ['Agile', 'Git', 'Swagger / Postman', 'Jira', "WebSocket"] },
+    { icon: Code, name: t('about.skillNames.Frontend'), technologies: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS'] },
+    { icon: Database, name: t('about.skillNames.Backend'), technologies: ['C# .NET', 'Nest.js', 'ORM (Prisma, Dapper, EfCore)', 'SQL / NoSQL'] },
+    { icon: Globe, name: t('about.skillNames.DevOps'), technologies: ['Docker', 'AWS', 'CI/CD', 'Microsoft Azure'] },
+    { icon: Briefcase, name: t('about.skillNames.Common'), technologies: ['Agile', 'Git', 'Swagger / Postman', 'Jira', "WebSocket"] },
   ];
 
   const containerVariants = {

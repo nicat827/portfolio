@@ -8,6 +8,13 @@ const Hero: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const scrollToAbout = () => {
+    const element = document.querySelector('#about');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const scrollToProjects = () => {
     const element = document.querySelector('#projects');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -240,7 +247,7 @@ const Hero: React.FC = () => {
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <button
-              onClick={scrollToAbout}
+              onClick={scrollToProjects}
               className="btn-primary text-lg px-8 py-4"
             >
               {t('hero.cta')}

@@ -23,7 +23,13 @@
     "skills": "Skills",
     "experience": "Experience",
     "education": "Education",
-    "present": "Present"
+    "present": "Present",
+    "skillNames": {
+      "Frontend": "Frontend",
+      "Backend": "Backend",
+      "DevOps": "DevOps",
+      "Common": "Common"
+    }
   },
   "projects": {
     "title": "My Projects",

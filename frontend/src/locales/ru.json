@@ -23,7 +23,13 @@
     "skills": "Навыки",
     "experience": "Опыт",
     "education": "Образование",
-    "present": "По настоящее время"
+    "present": "По настоящее время",
+    "skillNames": {
+      "Frontend": "Фронтенд",
+      "Backend": "Бэкенд",
+      "DevOps": "DevOps",
+      "Common": "Основное"
+    }
   },
   "projects": {
     "title": "Мои Проекты",
