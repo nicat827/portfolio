@@ -51,7 +51,7 @@
     "error": "Mesaj göndərilmədi. Yenidən cəhd edin.",
     "emailLabel": "Email",
     "phoneLabel": "Telefon",
-    "locationLabel": "Yerləşim",
+    "locationLabel": "Məkan",
     "followMe": "İzləyin",
     "namePlaceholder": "Sizin adınız",
     "emailPlaceholder": "your.email@example.com",
@@ -65,7 +65,7 @@
     "visitWebsite": "Veb Saytı Ziyarət Et",
     "current": "Hal-hazırda",
     "present": "Hal-hazırda",
-    "grade": "Qiymət",
+    "grade": "Bal",
     "months": {
       "January": "Yanvar",
       "February": "Fevral",
