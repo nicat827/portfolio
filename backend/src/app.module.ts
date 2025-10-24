@@ -5,6 +5,7 @@ import { ProjectsModule } from './projects/projects.module';
 import { ContactsModule } from './contacts/contacts.module';
 import { ExperiencesModule } from './experiences/experiences.module';
 import { EducationModule } from './education/education.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { EducationModule } from './education/education.module';
       isGlobal: true,
     }),
     PrismaModule,
+    AuthModule,
     ProjectsModule,
     ContactsModule,
     ExperiencesModule,

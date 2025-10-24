@@ -44,6 +44,8 @@ portfolio-site-frontend/
 - 📚 **Swagger** API documentation
 - ✅ **Validation** with class-validator
 - 🌐 **CORS** enabled for frontend integration
+- 🔐 **JWT Authentication** for secure admin operations
+- 🛡️ **Protected endpoints** for create, update, delete operations
 
 ## Quick Start
 
@@ -105,17 +107,36 @@ npm run dev:frontend
 
 ## API Endpoints
 
+### Authentication
+- `POST /auth/login` - Login and get JWT token
+
 ### Projects
 - `GET /projects` - Get all projects
 - `GET /projects/featured` - Get featured projects
-- `POST /projects` - Create new project (admin)
-
-### Contacts
-- `POST /contacts` - Submit contact form
+- `POST /projects` - Create new project (🔒 requires JWT)
+- `PATCH /projects/:id` - Update project (🔒 requires JWT)
+- `DELETE /projects/:id` - Delete project (🔒 requires JWT)
 
 ### Experiences
 - `GET /experiences` - Get all work experiences
 - `GET /experiences/current` - Get current experiences
+- `POST /experiences` - Create experience (🔒 requires JWT)
+- `PATCH /experiences/:id` - Update experience (🔒 requires JWT)
+- `DELETE /experiences/:id` - Delete experience (🔒 requires JWT)
+
+### Education
+- `GET /education` - Get all education
+- `GET /education/current` - Get current education
+- `POST /education` - Create education (🔒 requires JWT)
+- `PATCH /education/:id` - Update education (🔒 requires JWT)
+- `DELETE /education/:id` - Delete education (🔒 requires JWT)
+
+### Contacts
+- `GET /contacts` - Get all contacts (🔒 requires JWT)
+- `POST /contacts` - Submit contact form (public)
+- `PATCH /contacts/:id` - Update contact (🔒 requires JWT)
+- `PATCH /contacts/:id/status` - Update contact status (🔒 requires JWT)
+- `DELETE /contacts/:id` - Delete contact (🔒 requires JWT)
 
 ## Technologies Used
 
@@ -135,6 +156,8 @@ npm run dev:frontend
 - Swagger/OpenAPI
 - class-validator
 - class-transformer
+- JWT & Passport (authentication)
+- bcrypt (password hashing)
 
 ## Development
 
@@ -163,6 +186,27 @@ The database includes three main entities:
 - **Projects** - Portfolio projects with technologies, links, and featured status
 - **Contacts** - Contact form submissions with status tracking
 - **Experiences** - Work experience entries with company, position, and technologies
+- **Education** - Education entries with institution, degree, and field
+- **Users** - Admin user for authentication
+
+## 🔐 Authentication
+
+The API uses **JWT (JSON Web Tokens)** for secure authentication:
+
+- **Default credentials**: `admin@portfolio.com` / `Admin123!@#`
+- **Token lifetime**: 24 hours
+- **Testing**: Use Swagger UI at http://localhost:3000/api
+
+### Quick Start with JWT
+
+1. Login via **Swagger UI** → `POST /auth/login`
+2. Copy the `access_token` from the response
+3. Click **"Authorize"** button and paste: `Bearer <your_token>`
+4. Now all protected endpoints are accessible
+
+📖 **Detailed guide**: See `backend/AUTHORIZATION_QUICK_START.md`
+
+⚠️ **Important**: Change the default password immediately after first login!
 
 ## Contributing
 
