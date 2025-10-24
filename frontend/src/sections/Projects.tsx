@@ -76,12 +76,20 @@ const Projects: React.FC = () => {
               {/* Project Image */}
               <div className="relative overflow-hidden">
                 <div className="w-full h-48 bg-gradient-to-br from-primary-500/20 to-primary-600/20 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-primary-500/30 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                      <ExternalLink className="w-8 h-8 text-primary-400" />
+                  {project.imageUrl ? (
+                    <img 
+                      src={project.imageUrl}
+                      alt={project.title}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="text-center">
+                      <div className="w-16 h-16 bg-primary-500/30 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                        <ExternalLink className="w-8 h-8 text-primary-400" />
+                      </div>
+                      <p className="text-gray-400 text-sm">Project Preview</p>
                     </div>
-                    <p className="text-gray-400 text-sm">Project Preview</p>
-                  </div>
+                  )}
                 </div>
                 
                 {/* Overlay */}

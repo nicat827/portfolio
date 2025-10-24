@@ -5,6 +5,7 @@ import type { Project, Experience, Education } from '../services/api';
 
 // Хук для работы с проектами
 export const useProjects = () => {
+  const { i18n } = useTranslation();
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -15,7 +16,7 @@ export const useProjects = () => {
     const fetchProjects = async () => {
       try {
         setLoading(true);
-        const data = await projectsApi.getAll();
+        const data = await projectsApi.getAll(i18n.language);
         if (!abortController.signal.aborted) {
           setProjects(data);
           setError(null);
@@ -37,13 +38,14 @@ export const useProjects = () => {
     return () => {
       abortController.abort();
     };
-  }, []);
+  }, [i18n.language]);
 
   return { projects, loading, error };
 };
 
 // Хук для работы с избранными проектами
 export const useFeaturedProjects = () => {
+  const { i18n } = useTranslation();
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -54,7 +56,7 @@ export const useFeaturedProjects = () => {
     const fetchFeaturedProjects = async () => {
       try {
         setLoading(true);
-        const data = await projectsApi.getFeatured();
+        const data = await projectsApi.getFeatured(i18n.language);
         if (!abortController.signal.aborted) {
           setProjects(data);
           setError(null);
@@ -76,7 +78,7 @@ export const useFeaturedProjects = () => {
     return () => {
       abortController.abort();
     };
-  }, []);
+  }, [i18n.language]);
 
   return { projects, loading, error };
 };
@@ -94,7 +96,7 @@ export const useExperiences = () => {
     const fetchExperiences = async () => {
       try {
         setLoading(true);
-        const data = await experiencesApi.getAll();
+        const data = await experiencesApi.getAll(i18n.language);
         if (!abortController.signal.aborted) {
           setExperiences(data);
           setError(null);
@@ -134,7 +136,7 @@ export const useCurrentExperiences = () => {
     const fetchCurrentExperiences = async () => {
       try {
         setLoading(true);
-        const data = await experiencesApi.getCurrent();
+        const data = await experiencesApi.getCurrent(i18n.language);
         if (!abortController.signal.aborted) {
           setExperiences(data);
           setError(null);

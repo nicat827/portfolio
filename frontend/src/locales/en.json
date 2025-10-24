@@ -22,7 +22,8 @@
     "description": "I am a passionate developer with experience in creating modern web applications. I love working with React, TypeScript, and other cutting-edge technologies.",
     "skills": "Skills",
     "experience": "Experience",
-    "education": "Education"
+    "education": "Education",
+    "present": "Present"
   },
   "projects": {
     "title": "My Projects",

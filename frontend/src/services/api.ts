@@ -67,20 +67,32 @@ export interface Education {
 // API методы для проектов
 export const projectsApi = {
   // Получить все проекты
-  getAll: async (): Promise<Project[]> => {
-    const response = await api.get('/projects');
+  getAll: async (language: string = 'en'): Promise<Project[]> => {
+    const response = await api.get('/projects', {
+      headers: {
+        'Accept-Language': language,
+      },
+    });
     return response.data;
   },
 
   // Получить избранные проекты
-  getFeatured: async (): Promise<Project[]> => {
-    const response = await api.get('/projects/featured');
+  getFeatured: async (language: string = 'en'): Promise<Project[]> => {
+    const response = await api.get('/projects/featured', {
+      headers: {
+        'Accept-Language': language,
+      },
+    });
     return response.data;
   },
 
   // Получить проект по ID
-  getById: async (id: string): Promise<Project> => {
-    const response = await api.get(`/projects/${id}`);
+  getById: async (id: string, language: string = 'en'): Promise<Project> => {
+    const response = await api.get(`/projects/${id}`, {
+      headers: {
+        'Accept-Language': language,
+      },
+    });
     return response.data;
   },
 };
@@ -88,20 +100,32 @@ export const projectsApi = {
 // API методы для опыта работы
 export const experiencesApi = {
   // Получить весь опыт работы
-  getAll: async (): Promise<Experience[]> => {
-    const response = await api.get('/experiences');
+  getAll: async (language: string = 'en'): Promise<Experience[]> => {
+    const response = await api.get('/experiences', {
+      headers: {
+        'Accept-Language': language,
+      },
+    });
     return response.data;
   },
 
   // Получить текущие работы
-  getCurrent: async (): Promise<Experience[]> => {
-    const response = await api.get('/experiences/current');
+  getCurrent: async (language: string = 'en'): Promise<Experience[]> => {
+    const response = await api.get('/experiences/current', {
+      headers: {
+        'Accept-Language': language,
+      },
+    });
     return response.data;
   },
 
   // Получить опыт работы по ID
-  getById: async (id: string): Promise<Experience> => {
-    const response = await api.get(`/experiences/${id}`);
+  getById: async (id: string, language: string = 'en'): Promise<Experience> => {
+    const response = await api.get(`/experiences/${id}`, {
+      headers: {
+        'Accept-Language': language,
+      },
+    });
     return response.data;
   },
 };

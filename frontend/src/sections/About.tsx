@@ -1,18 +1,18 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { Code, Database, Globe, Smartphone, Loader2 } from 'lucide-react';
-import { useCurrentExperiences } from '../hooks/useApi';
+import { Code, Database, Globe, Loader2, Briefcase } from 'lucide-react';
+import {  useExperiences } from '../hooks/useApi';
 
 const About: React.FC = () => {
   const { t } = useTranslation();
-  const { experiences: currentExperiences, loading: experiencesLoading, error: experiencesError } = useCurrentExperiences();
+  const { experiences: currentExperiences, loading: experiencesLoading, error: experiencesError } = useExperiences();
 
   const skills = [
-    { icon: Code, name: 'Frontend', technologies: ['React', 'TypeScript', 'Next.js', 'Vue.js'] },
-    { icon: Database, name: 'Backend', technologies: ['Node.js', 'Python', 'PostgreSQL', 'MongoDB'] },
-    { icon: Globe, name: 'DevOps', technologies: ['Docker', 'AWS', 'CI/CD', 'Linux'] },
-    { icon: Smartphone, name: 'Mobile', technologies: ['React Native', 'Flutter', 'iOS', 'Android'] },
+    { icon: Code, name: 'Frontend', technologies: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS'] },
+    { icon: Database, name: 'Backend', technologies: ['C# .NET', 'Nest.js', 'ORM (Prisma, Dapper, EfCore)', 'SQL / NoSQL'] },
+    { icon: Globe, name: 'DevOps', technologies: ['Docker', 'AWS', 'CI/CD', 'Microsoft Azure'] },
+    { icon: Briefcase, name: 'Common', technologies: ['Agile', 'Git', 'Swagger / Postman', 'Jira', "WebSocket"] },
   ];
 
   const containerVariants = {
@@ -26,6 +26,7 @@ const About: React.FC = () => {
     },
   };
 
+  
   const itemVariants = {
     hidden: { 
       opacity: 0, 
@@ -87,27 +88,58 @@ const About: React.FC = () => {
                 </div>
               ) : (
                 <div className="space-y-3">
-                  {currentExperiences.map((experience) => (
-                    <div key={experience.id} className="glass-effect p-4 rounded-lg">
-                      <h4 className="font-semibold text-white">{experience.position}</h4>
-                      <p className="text-gray-400">
-                        {experience.company} • {new Date(experience.startDate).getFullYear()} - Present
-                      </p>
-                      <p className="text-sm text-gray-300 mt-2">
-                        {experience.description}
-                      </p>
-                      <div className="flex flex-wrap gap-2 mt-3">
-                        {experience.technologies.map((tech, index) => (
-                          <span
-                            key={index}
-                            className="px-2 py-1 bg-primary-500/20 text-primary-300 text-xs rounded-full"
-                          >
-                            {tech}
-                          </span>
-                        ))}
+                  {[...currentExperiences]
+                    .sort((a, b) => {
+                      // Current experiences first
+                      if (a.current && !b.current) return -1;
+                      if (!a.current && b.current) return 1;
+                      
+                      // Sort by endDate descending (newest first)
+                      if (a.current && b.current) {
+                        return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
+                      }
+                      
+                      if (a.endDate && b.endDate) {
+                        return new Date(b.endDate).getTime() - new Date(a.endDate).getTime();
+                      }
+                      
+                      return 0;
+                    })
+                    .map((experience) => {
+                    const formatDate = (dateString: string) => {
+                      const date = new Date(dateString);
+                      const month = String(date.getMonth() + 1).padStart(2, '0');
+                      const year = date.getFullYear();
+                      return `${month}/${year}`;
+                    };
+
+                    const startDate = formatDate(experience.startDate);
+                    const endDate = experience.endDate ? formatDate(experience.endDate) : null;
+                    const endText = experience.current ? t('about.present') : endDate;
+                    const dateRange = `${startDate} - ${endText}`;
+
+                    return (
+                      <div key={experience.id} className="glass-effect p-4 rounded-lg">
+                        <h4 className="font-semibold text-white">{experience.position}</h4>
+                        <p className="text-gray-400">
+                          {experience.company} • {dateRange}
+                        </p>
+                        <p className="text-sm text-gray-300 mt-2">
+                          {experience.description}
+                        </p>
+                        <div className="flex flex-wrap gap-2 mt-3">
+                          {experience.technologies.map((tech, index) => (
+                            <span
+                              key={index}
+                              className="px-2 py-1 bg-primary-500/20 text-primary-300 text-xs rounded-full"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
             </div>

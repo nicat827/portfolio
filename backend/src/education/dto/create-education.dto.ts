@@ -65,7 +65,18 @@ export class CreateEducationDto {
 
   @ApiProperty({ 
     description: 'Education translations',
-    type: [CreateEducationTranslationDto],
+    type: 'array',
+    items: {
+      type: 'object',
+      properties: {
+        language: { type: 'string', example: 'en' },
+        institution: { type: 'string', example: 'Azerbaijan Technical University' },
+        degree: { type: 'string', example: 'Bachelor Degree' },
+        field: { type: 'string', example: 'Information Technologies' },
+        description: { type: 'string', example: 'Studying software development' },
+      },
+      required: ['language', 'institution', 'degree', 'field'],
+    },
   })
   @IsArray()
   @ValidateNested({ each: true })
