@@ -8,7 +8,7 @@ const Hero: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const scrollToAbout = () => {
-    const element = document.querySelector('#about');
+    const element = document.querySelector('#projects');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }

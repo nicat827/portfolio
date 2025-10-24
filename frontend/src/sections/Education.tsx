@@ -32,15 +32,28 @@ const Education: React.FC = () => {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      month: 'short', 
-      year: 'numeric' 
-    });
+    const monthNames = [
+      t('education.months.January'),
+      t('education.months.February'),
+      t('education.months.March'),
+      t('education.months.April'),
+      t('education.months.May'),
+      t('education.months.June'),
+      t('education.months.July'),
+      t('education.months.August'),
+      t('education.months.September'),
+      t('education.months.October'),
+      t('education.months.November'),
+      t('education.months.December'),
+    ];
+    const month = monthNames[date.getMonth()];
+    const year = date.getFullYear();
+    return `${month} ${year}`;
   };
 
   const getDateRange = (startDate: string, endDate?: string, current?: boolean) => {
     const start = formatDate(startDate);
-    const end = endDate ? formatDate(endDate) : current ? 'Present' : '';
+    const end = endDate ? formatDate(endDate) : current ? t('education.present') : '';
     return end ? `${start} - ${end}` : start;
   };
 
@@ -131,7 +144,7 @@ const Education: React.FC = () => {
                     {edu.grade && (
                       <div className="flex items-center gap-2 text-gray-400">
                         <span className="text-sm">
-                          <strong className="text-white">Grade:</strong> {edu.grade}
+                          <strong className="text-white">{t('education.grade')}:</strong> {edu.grade}
                         </span>
                       </div>
                     )}

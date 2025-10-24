@@ -1,11 +1,13 @@
-import { IsString, IsOptional, IsBoolean, IsArray, IsUrl, ValidateNested } from 'class-validator';
+import { IsString, IsOptional, IsBoolean, IsArray, IsUrl, ValidateNested, ValidateIf } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { CreateProjectTranslationDto } from './create-project-translation.dto';
 
 export class CreateProjectDto {
-  @ApiProperty({ description: 'Project image URL', required: false })
+  @ApiProperty({ description: 'Project image URL (optional, leave empty for default preview)', required: false, example: 'https://example.com/image.jpg' })
   @IsOptional()
+  @IsString()
+  @ValidateIf((o) => o.imageUrl && o.imageUrl.length > 0)
   @IsUrl()
   imageUrl?: string;
 

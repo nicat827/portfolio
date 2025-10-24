@@ -57,7 +57,23 @@
     "title": "Təhsil",
     "subtitle": "Mənim təhsil fonum və nailiyyətlərim",
     "visitWebsite": "Veb Saytı Ziyarət Et",
-    "current": "Hal-hazırda"
+    "current": "Hal-hazırda",
+    "present": "Hal-hazırda",
+    "grade": "Qiymət",
+    "months": {
+      "January": "Yanvar",
+      "February": "Fevral",
+      "March": "Mart",
+      "April": "Aprel",
+      "May": "May",
+      "June": "İyun",
+      "July": "İyul",
+      "August": "Avqust",
+      "September": "Sentyabr",
+      "October": "Oktyabr",
+      "November": "Noyabr",
+      "December": "Dekabr"
+    }
   },
   "footer": {
     "rights": "Bütün hüquqlar qorunur.",

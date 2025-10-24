@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Loader2, X } from 'lucide-react';
 import type { Project } from '../../services/api';
 import api from '../../services/api';
+import ImageUploader from './ImageUploader';
 
 interface CreateProjectFormProps {
   token: string;
@@ -117,21 +118,15 @@ const CreateProjectForm: React.FC<CreateProjectFormProps> = ({
       )}
 
       <form onSubmit={handleSubmit} className="space-y-8">
-        {/* Image & URLs */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Image URL
-            </label>
-            <input
-              type="url"
-              value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
-              placeholder="https://example.com/image.jpg"
-              className="w-full px-4 py-2 bg-dark-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-primary-500 transition"
-            />
-          </div>
+        {/* Image Uploader */}
+        <ImageUploader
+          token={token}
+          onImageUpload={setImageUrl}
+          currentImageUrl={imageUrl || undefined}
+        />
 
+        {/* URLs */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-300 mb-2">
               Live URL
