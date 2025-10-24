@@ -46,6 +46,17 @@ export class EducationController {
     return this.educationService.findOne(id, lang);
   }
 
+  @Get(':id/admin')
+  @UseGuards(JwtGuard)
+  @ApiBearerAuth('bearer')
+  @ApiOperation({ summary: 'Get education entry with all translations for admin editing' })
+  @ApiResponse({ status: 200, description: 'Education entry retrieved successfully with all translations' })
+  @ApiResponse({ status: 401, description: 'Unauthorized - JWT token required' })
+  @ApiResponse({ status: 404, description: 'Education entry not found' })
+  findOneForAdmin(@Param('id') id: string) {
+    return this.educationService.findOneWithAllTranslations(id);
+  }
+
   @Patch(':id')
   @UseGuards(JwtGuard)
   @ApiBearerAuth('bearer')

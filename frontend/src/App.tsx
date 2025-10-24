@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './i18n';
 import Navigation from './components/Navigation';
 import ThreeBackground from './components/ThreeBackground';
@@ -8,8 +8,14 @@ import Projects from './sections/Projects';
 import Education from './sections/Education';
 import Contact from './sections/Contact';
 import Footer from './components/Footer';
+import AdminLogin from './pages/AdminLogin';
+import AdminDashboard from './pages/AdminDashboard';
 
 function App() {
+  const [adminToken, setAdminToken] = useState<string | null>(
+    localStorage.getItem('adminToken')
+  );
+
   useEffect(() => {
     // Add structured data for SEO
     const structuredData = {
@@ -36,8 +42,28 @@ function App() {
     };
   }, []);
 
+  const handleAdminLogin = (token: string) => {
+    setAdminToken(token);
+  };
+
+  const handleAdminLogout = () => {
+    localStorage.removeItem('adminToken');
+    setAdminToken(null);
+  };
+
+  // Admin routes
+  if (adminToken) {
+    return <AdminDashboard token={adminToken} onLogout={handleAdminLogout} />;
+  }
+
+  // Check if trying to access admin
+  if (window.location.pathname === '/admin') {
+    return <AdminLogin onLoginSuccess={handleAdminLogin} />;
+  }
+
+  // Normal portfolio view
   return (
-    <div className="min-h-screen bg-dark-900">
+    <div className="min-h-screen bg-dark-900 relative">
       <ThreeBackground />
       <Navigation />
       <main>

@@ -128,6 +128,35 @@ export class ProjectsService {
     };
   }
 
+  async findOneWithAllTranslations(id: string) {
+    const project = await this.prisma.project.findUnique({
+      where: { id },
+      include: {
+        translations: true,
+      },
+    });
+
+    if (!project) {
+      throw new NotFoundException(`Project with ID ${id} not found`);
+    }
+
+    return {
+      id: project.id,
+      imageUrl: project.imageUrl,
+      technologies: project.technologies,
+      githubUrl: project.githubUrl,
+      liveUrl: project.liveUrl,
+      featured: project.featured,
+      translations: project.translations.map(t => ({
+        language: t.language,
+        title: t.title,
+        description: t.description,
+      })),
+      createdAt: project.createdAt,
+      updatedAt: project.updatedAt,
+    };
+  }
+
   async update(id: string, updateProjectDto: UpdateProjectDto) {
     await this.findOne(id);
     

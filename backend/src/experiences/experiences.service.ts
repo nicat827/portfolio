@@ -128,6 +128,35 @@ export class ExperiencesService {
     };
   }
 
+  async findOneWithAllTranslations(id: string) {
+    const experience = await this.prisma.experience.findUnique({
+      where: { id },
+      include: {
+        translations: true,
+      },
+    });
+
+    if (!experience) {
+      throw new NotFoundException(`Experience with ID ${id} not found`);
+    }
+
+    return {
+      id: experience.id,
+      startDate: experience.startDate,
+      endDate: experience.endDate,
+      current: experience.current,
+      technologies: experience.technologies,
+      translations: experience.translations.map(t => ({
+        language: t.language,
+        company: t.company,
+        position: t.position,
+        description: t.description,
+      })),
+      createdAt: experience.createdAt,
+      updatedAt: experience.updatedAt,
+    };
+  }
+
   async update(id: string, updateExperienceDto: UpdateExperienceDto) {
     await this.findOne(id);
     

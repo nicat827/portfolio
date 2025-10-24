@@ -58,6 +58,17 @@ export class ExperiencesController {
     return this.experiencesService.findOne(id, lang);
   }
 
+  @Get(':id/admin')
+  @UseGuards(JwtGuard)
+  @ApiBearerAuth('bearer')
+  @ApiOperation({ summary: 'Get experience with all translations for admin editing' })
+  @ApiResponse({ status: 200, description: 'Experience retrieved successfully with all translations' })
+  @ApiResponse({ status: 401, description: 'Unauthorized - JWT token required' })
+  @ApiResponse({ status: 404, description: 'Experience not found' })
+  findOneForAdmin(@Param('id') id: string) {
+    return this.experiencesService.findOneWithAllTranslations(id);
+  }
+
   @Patch(':id')
   @UseGuards(JwtGuard)
   @ApiBearerAuth('bearer')

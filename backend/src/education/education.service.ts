@@ -134,6 +134,36 @@ export class EducationService {
     };
   }
 
+  async findOneWithAllTranslations(id: string) {
+    const education = await this.prisma.education.findUnique({
+      where: { id },
+      include: {
+        translations: true,
+      },
+    });
+
+    if (!education) {
+      return null;
+    }
+
+    return {
+      id: education.id,
+      startDate: education.startDate,
+      endDate: education.endDate,
+      current: education.current,
+      grade: education.grade,
+      website: education.website,
+      translations: education.translations.map(t => ({
+        language: t.language,
+        institution: t.institution,
+        degree: t.degree,
+        field: t.field,
+      })),
+      createdAt: education.createdAt,
+      updatedAt: education.updatedAt,
+    };
+  }
+
   async update(id: string, updateEducationDto: UpdateEducationDto) {
     const { translations, ...educationData } = updateEducationDto;
     

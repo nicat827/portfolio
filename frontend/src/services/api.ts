@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // API base URL - настройте под ваш бэкенд
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
 // Создаем экземпляр axios с базовой конфигурацией
 const api = axios.create({
@@ -21,6 +21,7 @@ export interface Project {
   githubUrl?: string;
   liveUrl?: string;
   featured: boolean;
+  translations?: Array<{ language: string; title: string; description: string }>;
   createdAt: string;
   updatedAt: string;
 }
@@ -34,6 +35,7 @@ export interface Experience {
   endDate?: string;
   current: boolean;
   technologies: string[];
+  translations?: Array<{ language: string; company: string; position: string; description: string }>;
   createdAt: string;
   updatedAt: string;
 }
@@ -95,6 +97,16 @@ export const projectsApi = {
     });
     return response.data;
   },
+
+  // Получить проект со всеми переводами (для админки)
+  getByIdForAdmin: async (id: string, token: string): Promise<Project> => {
+    const response = await api.get(`/projects/${id}/admin`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  },
 };
 
 // API методы для опыта работы
@@ -124,6 +136,16 @@ export const experiencesApi = {
     const response = await api.get(`/experiences/${id}`, {
       headers: {
         'Accept-Language': language,
+      },
+    });
+    return response.data;
+  },
+
+  // Получить опыт со всеми переводами (для админки)
+  getByIdForAdmin: async (id: string, token: string): Promise<Experience> => {
+    const response = await api.get(`/experiences/${id}/admin`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
     });
     return response.data;
