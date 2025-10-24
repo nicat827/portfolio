@@ -1,16 +1,30 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { TelegramService } from '../notifications/telegram.service';
 import { CreateContactDto } from './dto/create-contact.dto';
 import { UpdateContactDto } from './dto/update-contact.dto';
 
 @Injectable()
 export class ContactsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private telegramService: TelegramService,
+  ) {}
 
   async create(createContactDto: CreateContactDto) {
-    return this.prisma.contact.create({
+    const contact = await this.prisma.contact.create({
       data: createContactDto,
     });
+
+    // Send Telegram notification
+    await this.telegramService.sendContactNotification({
+      name: createContactDto.name,
+      email: createContactDto.email,
+      subject: createContactDto.subject,
+      message: createContactDto.message,
+    });
+
+    return contact;
   }
 
   async findAll() {

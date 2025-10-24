@@ -7,6 +7,7 @@ import { ExperiencesModule } from './experiences/experiences.module';
 import { EducationModule } from './education/education.module';
 import { AuthModule } from './auth/auth.module';
 import { UploadModule } from './upload/upload.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { UploadModule } from './upload/upload.module';
     PrismaModule,
     AuthModule,
     UploadModule,
+    NotificationsModule,
     ProjectsModule,
     ContactsModule,
     ExperiencesModule,
