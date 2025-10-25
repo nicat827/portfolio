@@ -39,7 +39,7 @@ const Contact: React.FC = () => {
     {
       icon: Phone,
       label: t('contact.phoneLabel'),
-      value: '+994 (50) 977-8415',
+      value: '+994 (50) 977 84 15',
       href: 'tel:+994509778415',
     },
     {
