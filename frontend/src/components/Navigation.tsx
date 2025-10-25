@@ -47,7 +47,7 @@ const Navigation: React.FC = () => {
 
   const handleDownloadCV = () => {
     // Open CV from Cloudinary in new tab
-    window.open('https://res.cloudinary.com/dg28bvc8m/image/upload/v1761216357/r1q3wetktkwosd8ucxdr.pdf', '_blank');
+    window.open(import.meta.env.VITE_CV_URL, '_blank');
   };
 
   return (
